@@ -1,0 +1,10 @@
+
+---
+
+ - hosts: all
+   remote_user: root
+   become: true
+
+   tasks:
+    - shell: "echo -e SELINUX=disabled '\n\n'SELINUX=targeted > /etc/selinux/config" 
+    - shell: "reboot"

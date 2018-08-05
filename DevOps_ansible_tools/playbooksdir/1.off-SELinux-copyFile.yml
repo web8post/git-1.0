@@ -1,0 +1,17 @@
+
+---
+
+ - name: Disable SElinux
+   hosts: all
+   remote_user: root
+   become: true
+
+   vars:
+        source_file: /etc/selinux/config
+        dest_file  : /etc/selinux/config
+       
+
+   tasks:
+    - name: copy file
+      copy: src={{ source_file }}  dest={{ dest_file }} mode=0555
+    

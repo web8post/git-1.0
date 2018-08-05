@@ -1,0 +1,12 @@
+
+---
+
+ - hosts: all
+   remote_user: root
+   become: true
+
+   tasks:
+    - shell: "yum update -y" 
+    - shell: "yum install epel-release -y && yum update -y" 
+    - shell: "yum install vim mc net-tools bind-utils -y" 
+    - shell: "yum install elinks -y"
