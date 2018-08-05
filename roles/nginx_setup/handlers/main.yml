@@ -1,0 +1,6 @@
+---
+# handlers file for nginx_setup
+
+- name: Reload Nginx
+  service: name=nginx state=reloaded
+

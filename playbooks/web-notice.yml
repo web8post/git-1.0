@@ -1,0 +1,26 @@
+---
+ - name: Configure webserver with nginx
+   hosts: websrv
+   become: True
+   tasks:
+
+     - name: Install epel-release
+       yum: name=epel-release update_cache=yes
+
+     - name: Install nginx
+       yum: name=nginx update_cache=yes
+
+     - name: copy nginx config file
+       copy: src=/etc/ansible/playbooks/files/nginx.conf dest=/etc/nginx/sites-available/default
+
+#     - name: Enable configuration
+#       file: >
+#         dest=/etc/nginx/sites-enabled/default
+#         src=/etc/nginx/sites-evailable/default 
+#         state=link
+     
+#    - name: copy insdex.htm
+#       template: src=/etc/ansible/playbooks/template/index.html.j2 dest=/usr/share/nginx/html/index.html mode=0644
+
+     - name: restart nginx
+       service: name=nginx state=restarted

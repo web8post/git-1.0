@@ -1,0 +1,6 @@
+---
+# defaults file for basic.setup
+
+selinux_conf: /etc/selinux/config
+selinux_policy: targeted
+selinux_state: disabled

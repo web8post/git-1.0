@@ -1,0 +1,12 @@
+---
+- name: Configure webserver with nginx and tls
+  hosts: web
+  become: True  
+
+  roles: 
+    - begin_config_apply 
+
+
+
+
+

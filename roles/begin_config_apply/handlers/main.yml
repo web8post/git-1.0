@@ -1,0 +1,5 @@
+---
+# handlers file for basic.setup
+- name: Restart Operation system to apply == DISABLED SELINUX ==
+  command: reboot
+

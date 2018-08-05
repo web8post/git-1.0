@@ -1,0 +1,47 @@
+---
+# tasks file for basic.setup
+- block:        # //disable SElinux and restart system
+    - name: Ensure that the selinux packages are installed
+      tags: selinux
+      become: True
+      yum:
+        name: "{{ item }}"
+        state: present
+      register: selinux_yum
+      with_items:
+        - libselinux-python
+        - selinux-policy
+
+    - name: Applying selinux policy and state configurations
+      tags: selinux
+      become: True
+      selinux:
+        conf: "{{ selinux_conf }}"
+        policy: "{{ selinux_policy }}"
+        state: "{{ selinux_state }}"
+      when: selinux_yum is success
+
+    - name: OFF firewalld
+#      service:  name=firewalld # state=stopped # enabled=False
+      yum: name=firewalld state=absent
+      notify: Restart Operation system to apply == DISABLED SELINUX ==
+
+    - name: set timezone to Europe/Kiev
+      become: True
+      timezone:
+        name: Europe/Kiev
+
+    - name: Install basic software
+      become: True
+      yum: name={{ item }} state=installed update_cache=yes 
+      with_items:
+        - vim
+        - mc
+        - net-tools
+        - bind-utils
+        - epel-release
+        - tree
+        - wget
+        
+...
+
